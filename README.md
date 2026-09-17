@@ -1,5 +1,9 @@
 # RPSystems Discord Toolkit
 
+[![CI](https://github.com/HenkiePablo/rpsystems-discord-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/HenkiePablo/rpsystems-discord-toolkit/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/HenkiePablo/rpsystems-discord-toolkit)](https://github.com/HenkiePablo/rpsystems-discord-toolkit/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Open-source utilities for building, validating and maintaining reliable Discord bots and FiveM community integrations.
 
 > This repository contains generic open-source tooling. Commercial RPSystems bot logic, customer data, credentials and private integrations are intentionally not included.
@@ -26,6 +30,18 @@ Until an npm package is published, install directly from GitHub:
 npm install github:HenkiePablo/rpsystems-discord-toolkit
 ```
 
+## Try it without credentials
+
+Clone the repository and run the credential-free example:
+
+```bash
+git clone https://github.com/HenkiePablo/rpsystems-discord-toolkit.git
+cd rpsystems-discord-toolkit
+node examples/quick-start.js
+```
+
+The example audits a Discord.js-style permission object, produces a normalized health result and emits a structured log record. It does not require a Discord token or any external service.
+
 ## Quick start
 
 ```js
@@ -45,17 +61,13 @@ const config = validateConfig(
   { required: ['DISCORD_TOKEN', 'CLIENT_ID'] },
 );
 
-// Arrays continue to work.
 const permissionReport = auditPermissions([
   'ViewChannel',
   'SendMessages',
   'Administrator',
 ]);
 
-// Discord.js-style permission objects can be passed directly too.
 const memberReport = auditPermissions(member.permissions);
-
-// Normalize separately when you need the raw permission-name array.
 const names = normalizeDiscordPermissions(member.permissions);
 
 const health = runHealthCheck({
@@ -84,6 +96,12 @@ Returns a normalized health report with `healthy`, `degraded` or `unhealthy` sta
 
 ### `createLogger(context, options)`
 Creates a small structured logger that writes JSON records and supports contextual fields.
+
+## First adopters wanted
+
+If you maintain a Discord or FiveM bot, you can help by trying the toolkit in a development environment and reporting what worked, what was unclear, and which reusable checks you would want next. Real-world feedback is more useful than artificial download or star counts.
+
+Use the **Adopter feedback** issue template to share your experience. Please do not include tokens, private server data, customer information or proprietary code.
 
 ## Security
 
