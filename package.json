@@ -1,6 +1,6 @@
 {
   "name": "@rpsystems/discord-toolkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open-source utilities for reliable Discord bots and FiveM community integrations.",
   "type": "module",
   "main": "src/index.js",

@@ -8,10 +8,20 @@ The format is inspired by Keep a Changelog and this project follows semantic ver
 
 ### Planned
 
-- Discord.js adapter helpers
 - Permission snapshot and diff helpers
 - FiveM resource health adapters
 - Redacted diagnostics bundle
+
+## [0.1.1] - 2026-09-17
+
+### Changed
+
+- `auditPermissions` now accepts Discord.js-style permission objects directly
+- README examples now document direct Discord.js permission auditing
+
+### Added
+
+- Regression coverage for wrapper and serialized permission inputs
 
 ## [0.1.0] - 2026-09-17
 
@@ -19,6 +29,7 @@ The format is inspired by Keep a Changelog and this project follows semantic ver
 
 - Configuration validation with secret redaction
 - Discord permission auditing
+- Discord.js permission normalization helpers
 - Runtime health-check normalization
 - Structured JSON logging
 - Automated tests for the core utilities

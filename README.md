@@ -12,6 +12,7 @@ Discord and FiveM community bots often repeat the same reliability work: validat
 
 - Environment/config validation with actionable errors
 - Discord permission auditing for high-risk permissions
+- Direct support for common Discord.js permission objects
 - Runtime health checks with normalized status
 - Structured JSON logging with contextual fields
 - Dependency-free core for Node.js 20+
@@ -31,6 +32,7 @@ npm install github:HenkiePablo/rpsystems-discord-toolkit
 import {
   validateConfig,
   auditPermissions,
+  normalizeDiscordPermissions,
   runHealthCheck,
   createLogger,
 } from '@rpsystems/discord-toolkit';
@@ -43,11 +45,18 @@ const config = validateConfig(
   { required: ['DISCORD_TOKEN', 'CLIENT_ID'] },
 );
 
+// Arrays continue to work.
 const permissionReport = auditPermissions([
   'ViewChannel',
   'SendMessages',
   'Administrator',
 ]);
+
+// Discord.js-style permission objects can be passed directly too.
+const memberReport = auditPermissions(member.permissions);
+
+// Normalize separately when you need the raw permission-name array.
+const names = normalizeDiscordPermissions(member.permissions);
 
 const health = runHealthCheck({
   configValid: config.ok,
@@ -64,8 +73,11 @@ logger.info('Bot health checked', { status: health.status });
 ### `validateConfig(values, options)`
 Checks required values and optional custom validators. Secret values are never echoed in validation errors.
 
+### `normalizeDiscordPermissions(input)`
+Normalizes strings, arrays, iterables, Discord.js-style `toArray()` / `serialize()` permission objects and wrapper objects with a `.permissions` field.
+
 ### `auditPermissions(permissions, options)`
-Flags permissions that deserve explicit review, including `Administrator`, `ManageGuild`, `ManageRoles`, `ManageChannels`, `BanMembers`, `KickMembers` and `ManageWebhooks`.
+Flags permissions that deserve explicit review. Accepts normal arrays/strings as well as the Discord.js-style permission inputs supported by `normalizeDiscordPermissions`.
 
 ### `runHealthCheck(checks)`
 Returns a normalized health report with `healthy`, `degraded` or `unhealthy` status.
@@ -83,7 +95,6 @@ Contributions, bug reports and feature proposals are welcome. See [CONTRIBUTING.
 
 ## Roadmap
 
-- Discord.js adapter helpers
 - Permission snapshots and diffing
 - FiveM resource health adapters
 - Redacted diagnostics bundle
