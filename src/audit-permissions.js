@@ -1,3 +1,5 @@
+import { normalizeDiscordPermissions } from './discord-permissions.js';
+
 const DEFAULT_HIGH_RISK = new Set([
   'Administrator',
   'ManageGuild',
@@ -10,7 +12,7 @@ const DEFAULT_HIGH_RISK = new Set([
 
 export function auditPermissions(permissions = [], options = {}) {
   const highRisk = new Set(options.highRisk ?? DEFAULT_HIGH_RISK);
-  const normalized = [...new Set(permissions.map(String))];
+  const normalized = normalizeDiscordPermissions(permissions);
   const flagged = normalized.filter((permission) => highRisk.has(permission));
 
   return {
