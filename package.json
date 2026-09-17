@@ -1,0 +1,24 @@
+{
+  "name": "@rpsystems/discord-toolkit",
+  "version": "0.1.0",
+  "description": "Open-source utilities for reliable Discord bots and FiveM community integrations.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "fivem",
+    "bot",
+    "toolkit",
+    "health-check",
+    "permissions"
+  ],
+  "license": "MIT"
+}
